@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+    Author: H. James de St. Germain
+    Date:   Spring 2024
+    
+    This is an example of a Maui XAML page that can be loaded (pushed) "on top" 
+    of another page and then removed (popped).
+  -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="For3500EventsAddViaCode.HelpPage"
+             Title="Information">
+   
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="20">
+            <Label Text="Declaration of Independence" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <Label Text="When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another, and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation." />
+
+            <Image Source="storyteller.PNG" HeightRequest="100" HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.--That to secure these rights, Governments are instituted among Men, deriving their just powers from the consent of the governed," />
+
+            <Label Text="That whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its foundation on such principles and organizing its powers in such form, as to them shall seem most likely to effect their Safety and Happiness." />
+
+            <Label Text="Prudence, indeed, will dictate that Governments long established should not be changed for light and transient causes; and accordingly all experience hath shewn, that mankind are more disposed to suffer, while evils are sufferable, than to right themselves by abolishing the forms to which they are accustomed." />
+
+            <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand" Margin="0,10,0,10" />
+
+            <Label Text="Press the back arrow (up top) or return button."/>
+
+            <Button
+            x:Name="ReturnToMainPageButton"
+            Text="Return to Application"
+            HorizontalOptions="Center"/>
+        </StackLayout>
+            
+            
+    </ScrollView>
+
+</ContentPage>

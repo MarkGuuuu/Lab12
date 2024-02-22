@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+    Author: H. James de St. Germain
+    Date:   Spring 2023
+    
+    This Code is for CS 3500 students to investigate several
+    issues associated with MAUI.  Please see the cs part of this file
+    for more information.
+    
+  -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="For3500EventsAddViaCode.MainPage">
+
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="Help?" Clicked="HelpInformation" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+    
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                Text="CS 3500 Example - Events - Focus - Adding Via Code!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="Message"
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
+            <VerticalStackLayout
+                x:Name="EntryList"
+                HorizontalOptions="Center"/>
+
+            <Button
+                x:Name="ClearButton"
+                Text="Clear"
+                HorizontalOptions="Center"
+                Clicked="ClearButtonClicked"/>
+
+            <Label
+                x:Name="ErrorMessages"
+                Text=""
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
