@@ -3,22 +3,39 @@
 namespace CS3500Lab8;
 
 /// <summary>
-///  Demonstration code for two threads accessing shared memory
+///   <para>
+///     Author: CS 3500 Course Staff
+///   </para>
+///   <para>
+///     Demonstration code for two threads accessing shared memory
+///   </para>
 /// </summary>
 public class ThreadPractice
 {
     /// <summary>
-    /// An object used as the door/lock to keep
-    /// multiple threads from accessing the same _shared resource_ in
-    /// the same _critical region_ at the same _time_.
+    ///   <para>
+    ///     An object used as the door/lock to keep
+    ///     multiple threads from accessing the same _shared resource_ in
+    ///     the same _critical region_ at the same _time_.
+    ///   </para>
     /// 
-    /// Note: there is nothing special about using an "object" object here. We
-    ///       could use a Student object (if we had one) or the ThreadPractice object
-    ///       (which we do have, i.e., "this").
-    ///       
-    ///       Using a specially named locking object makes it clearer what is going on.
+    ///   <remark>
+    ///     <para>
+    ///         Note: there is nothing special about using an "object" object here. We
+    ///               could use a Student object (if we had one) or the ThreadPractice object
+    ///               (which we do have, i.e., "this").
+    ///      </para>
+    ///      <para>
+    ///          Using a specially named locking object makes it clearer what is going on.
+    ///      </para>
+    ///      <para>
+    ///          Further, making the object READONLY eliminates the possible error of locking
+    ///          on the door, then assigning Door a new object, and then locking on it again.  That 
+    ///          would NOT provide thread safety
+    ///      </para>
+    ///   </remark>
     /// </summary>
-    private object Door = new object();
+    private readonly object Door = new object();
 
     /// <summary>
     ///   Shared memory utilized by two threads
@@ -79,9 +96,14 @@ public class ThreadPractice
     }
 
     /// <summary>
-    ///   Defines how much "work" to do in our methods.
+    ///   <para>
+    ///     Defines how much "work" to do in our methods.
+    ///   </para>
+    ///   <para>
+    ///     Set this value to something that takes 5-10 seconds on your computer.
+    ///   </para>
     /// </summary>
-    private readonly int WorkIterations = 1_000_000_000;
+    private readonly int WorkIterations = 500_000_000;
 
     /// <summary>
     ///   <para>
@@ -144,7 +166,5 @@ public class ThreadPractice
             Count--;
         }
     }
-
-
 
 }
