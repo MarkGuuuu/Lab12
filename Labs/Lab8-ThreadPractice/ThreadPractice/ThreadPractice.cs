@@ -100,10 +100,11 @@ public class ThreadPractice
     ///     Defines how much "work" to do in our methods.
     ///   </para>
     ///   <para>
-    ///     Set this value to something that takes 5-10 seconds on your computer.
+    ///     Set this value to something that takes 5-10 seconds on your computer, or
+    ///     longer if you want to have more time to debug/view the task manager.
     ///   </para>
     /// </summary>
-    private readonly int WorkIterations = 500_000_000;
+    private readonly int WorkIterations = 1_000_000_000;
 
     /// <summary>
     ///   <para>
