@@ -36,6 +36,10 @@ namespace CS3500
         /// </summary>
         private List<Socket> clients = new List<Socket>();
 
+        /// <summary>
+        ///   Object that waits for incoming "calls", i.e., it listens for a new connection.  When a new
+        ///   connection is achieved, builds a "socket" for the communication.
+        /// </summary>
         private TcpListener listener;
 
         /// <summary>
@@ -67,7 +71,7 @@ namespace CS3500
 
             // This begins an "event loop".
             // ConnectionRequested will be invoked when the first connection arrives.
-            // TODO: we should be passing the TcpListener as the last argument, instead 
+            // Alternative: we could pass the TcpListener as the last argument here (instead of null), instead 
             //       of having it as a member of the class.
             listener.BeginAcceptSocket(ConnectionRequested, null);
 
