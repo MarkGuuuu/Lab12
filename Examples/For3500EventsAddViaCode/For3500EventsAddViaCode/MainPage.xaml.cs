@@ -111,6 +111,22 @@ public partial class MainPage : ContentPage
         Navigation.PushAsync( page, true );
     }
 
-
+    /// <summary>
+    ///   <para>
+    ///     This method is executed once the page is fully loaded.  
+    ///   </para>
+    ///   <para>
+    ///      It is useful for actions that must be taken once the GUI is "fully formed".  For example,
+    ///      if you set focus to a "widget" in the constructor, it won't have focus.  It
+    ///      has to be not only constructed, but placed on the GUI, and the GUI "drawn"
+    ///      before you can focus it.
+    ///   </para>
+    /// </summary>
+    /// <param name="sender"> ignored  - we know it is the page</param>
+    /// <param name="e"> ignored - we know it is a loaded event </param>
+    private void OnPageLoaded( object sender, EventArgs e )
+    {
+        EntryColumn[0].Focus();
+    }
 }
 
