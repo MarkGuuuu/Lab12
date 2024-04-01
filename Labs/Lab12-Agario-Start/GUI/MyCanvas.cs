@@ -73,6 +73,7 @@ public class MyCanvas : IDrawable
     {
         Debug.WriteLine( "RePainting the GUI" );
 
+        // "Erase" the previous scene by drawing the background.
         canvas.FillColor = Colors.DarkBlue;
         canvas.FillRectangle( 0, 0, 1000, 500 );
 
@@ -86,7 +87,7 @@ public class MyCanvas : IDrawable
             }
         }
 
-        // Draw a static shape
+        // Draw the static shape
         canvas.FillColor = Colors.Aqua;
         canvas.FillRectangle( x, y, 100, 100 );
 
