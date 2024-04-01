@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lab12_Agario_Start_JSON_Graphics.MainPage"
+             BackgroundColor="Black">
+
+    <ContentPage.Resources>
+        <Style TargetType="ScrollView">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light='LightSkyBlue', Dark='MidnightBlue'}" />
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light='Azure', Dark='Blue'}" />
+            <Setter Property="TextColor"        Value="{AppThemeBinding Light='Black', Dark='PaleTurquoise'}" />
+        </Style>
+
+        <Style TargetType="Editor">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light='DodgerBlue', Dark='SkyBlue'}" />
+            <Setter Property="TextColor"        Value="{AppThemeBinding Light='Navy', Dark='Black'}" />
+            <Setter Property="FontAttributes"   Value="Bold"/>
+        </Style>
+
+    </ContentPage.Resources>
+    
+    <ScrollView
+        HeightRequest="800">
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="10,0"
+            VerticalOptions="Center">
+            <Label
+                Text="CS 3500 - Lab 12 - Example"
+                HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button
+                    x:Name="ConnectBtn"
+                    Text="Connect"
+                    Clicked="ConnectBtnClicked"
+                    Margin="0,20"
+                    HorizontalOptions="Center" />
+
+                <ActivityIndicator 
+                    x:Name="Spinner"
+                    IsRunning="True"
+                    IsVisible="False"/>
+
+                <Button
+                    x:Name="InvalidateBtn"
+                    Text="Invalidate Screen"
+                    Clicked="InvalidateBtnClicked"
+                    Margin="0,20"
+                    HorizontalOptions="Center" />
+            </HorizontalStackLayout>
+            
+            <GraphicsView
+                x:Name="DrawOnMe"
+                HeightRequest="500"
+                WidthRequest="500"/>
+
+            <VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label VerticalOptions="Center" Text="Move on Update"/>
+                    <CheckBox  x:Name="MoveOnUpdateCheckBox"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label VerticalOptions="Center" Text="Continuous Move"/>
+                    <CheckBox
+                    x:Name="InvalidateAlwaysCheckBox"
+                    CheckedChanged="InvalidateAlwaysBtnClicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
