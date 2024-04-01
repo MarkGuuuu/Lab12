@@ -52,4 +52,18 @@
 //                                          onMessage
 //                                            receives a BoxConsole.WriteLine( "CS 3500 - Jims Sample - Lab 12 Code!" );
 
-Console.WriteLine( "Server code is coming during the lab!" );
+using System.Text.Json;
+using Communications;
+using Lab12Models;
+using Microsoft.Extensions.Logging;
+
+// let's use a logger in this project for communication and debugging
+var loggerFactory = LoggerFactory.Create( builder =>
+{
+    builder.AddConsole();
+    builder.SetMinimumLevel(LogLevel.Debug);
+});
+
+var logger = loggerFactory.CreateLogger<Program>();
+
+logger.LogInformation( "Server code is coming during the lab!" );
