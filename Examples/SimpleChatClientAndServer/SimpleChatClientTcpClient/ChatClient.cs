@@ -26,7 +26,7 @@
         /// <summary>
         /// Connection object to remote server.
         /// </summary>
-        private readonly TcpClient tcpClient;
+        public readonly TcpClient tcpClient;
 
         /// <summary>
         ///   <para>
@@ -60,7 +60,7 @@
         ///   Save all incoming data and then check for "official" messages as
         ///   determined by "special" token (i.e., the period).
         /// </summary>
-        public async void Listen()
+        public async Task Listen()
         {
             try
             {

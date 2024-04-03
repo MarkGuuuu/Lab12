@@ -1,4 +1,5 @@
-﻿using CS3500;
+﻿using System.Text;
+using CS3500;
 
 /// <summary>
 ///   Author: H. James de St. Germain
@@ -43,7 +44,20 @@ if ( !Int32.TryParse( portStr, out port ) )
 //
 // Start the server
 //
-new ChatClient( host, port ).Listen();
+var client = new ChatClient( host, port );
+
+var _ = client.Listen();
+
+Console.WriteLine( "client is listening" );
+
+while ( true )
+{
+    string message = Console.ReadLine() + '\n';
+
+    byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+
+    await client.tcpClient.GetStream().WriteAsync( messageBytes, 0, messageBytes.Length );
+}
 
 Console.Read();
 

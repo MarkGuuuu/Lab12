@@ -68,21 +68,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EditorConfigFiles Remove="C:\Users\germain\Source\Repos\CS3500\S23_Staff\Lab12-Agario-Start\GUI\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="C:\Users\germain\Source\Repos\CS3500\S23_Staff\Lab12-Agario-Start\GUI\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Reference Include="Communications">
 	    <HintPath>..\libs\Communications.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.14" />
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
