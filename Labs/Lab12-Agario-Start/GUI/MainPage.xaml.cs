@@ -51,8 +51,23 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    ///    On the first display of window, try to set the size
-    ///    to the constants below.
+    ///   <para>
+    ///     You (as of this writing) cannot change the window size for an
+    ///     application via the XAML, but you can do it via code.
+    ///   </para>
+    ///   <para>
+    ///     On the first display of window, try to set the size
+    ///     to the constants below.
+    ///   </para>
+    ///   <para>
+    ///      After the first initial sizing, this code simply allows
+    ///      the user to drag the size of the window to anything that
+    ///      is allowed by MAUI.
+    ///   </para>
+    ///   <remark>
+    ///     This code has Mac and Windows specific code. It would be
+    ///     nice to have one set of instructions for both.
+    ///   </remark>
     /// </summary>
     /// <param name="width"> how wide the client should be</param>
     /// <param name="height"> how tall the client should be</param>
@@ -60,6 +75,7 @@ public partial class MainPage : ContentPage
     {
         base.OnSizeAllocated( width, height );
 
+        // Set the desired size. FIXME: replace #s below with constants
         if ( this.initialResize )
         {
             this.initialResize = false;
@@ -68,6 +84,24 @@ public partial class MainPage : ContentPage
             {
                 this.Window.Width = 600;
                 this.Window.Height = 900;
+            }  // FIXME: it would be nice not to use ISOSPlatform and DeviceInfo.Platform...
+            else if ( DeviceInfo.Platform == DevicePlatform.MacCatalyst )
+            {
+                Window.MinimumWidth = 600;
+                Window.MaximumWidth = 600;
+
+                Window.MinimumHeight = 900;
+                Window.MaximumHeight = 900;
+
+                // Once the initial size is set, we allow the user freedom
+                // to resize to any width/height they want/is allowed.
+                Dispatcher.Dispatch(() =>
+                {
+                    Window.MinimumWidth = 0;
+                    Window.MaximumWidth = double.PositiveInfinity;
+                    Window.MinimumHeight = 0;
+                    Window.MaximumHeight = double.PositiveInfinity;
+                });
             }
         }
     }
