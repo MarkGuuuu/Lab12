@@ -69,7 +69,7 @@ public class MyCanvas : IDrawable
     /// </summary>
     /// <param name="canvas"> What we are drawing on</param>
     /// <param name="dirtyRect"> The area of the rectangle that has been changed. Not Used.</param>
-    public void Draw( ICanvas canvas, RectF dirtyRect )
+    public void DrawOld( ICanvas canvas, RectF dirtyRect )
     {
         Debug.WriteLine( "RePainting the GUI" );
 
@@ -100,4 +100,79 @@ public class MyCanvas : IDrawable
             // gv.Dispatcher.Dispatch( ( ) => gv.Invalidate() );
         }
     }
+
+
+    /// <summary>
+    ///   <para>
+    ///     Draw boxes (world model) in screen coordinates.
+    ///   </para>
+    ///   <para>
+    ///     Change the name to Draw when to see the box code.
+    ///   </para>
+    /// </summary>
+    /// <param name="canvas"> The drawing surface.</param>
+    /// <param name="dirtyRect">
+    ///   The part of the drawing surface that needs
+    ///   to be replaced. We are not using this data; simply redraw everything.
+    /// </param>
+    public void Draw(ICanvas canvas, RectF dirtyRect)
+    {
+        int alpha = 255;
+        int red = 255;
+        int green = 0;
+        int blue = 0;
+
+        canvas.FillColor = Colors.LightBlue;
+        canvas.FillRectangle(0, 0, 1000, 500);
+        lock (boxes)
+        {
+            foreach (var box in boxes)
+            {
+                ConvertFromWorldToScreen(box.X, box.Y, box.Width, box.Height,
+                      out int screen_x, out int screen_y,
+                      out int screen_w, out int screen_h);
+
+                canvas.FillColor = Color.FromRgba(red, blue, green, alpha);
+                canvas.StrokeColor = Colors.Black;
+                canvas.DrawRectangle(screen_x, screen_y, screen_w, screen_h);
+                canvas.FillRectangle(screen_x, screen_y, screen_w, screen_h);
+                green += 3;
+                blue += 8;
+                green %= 255;
+                blue %= 255;
+            }
+
+            if (invalidateAlwaysCB.IsChecked)
+            {
+                gv.Invalidate();
+
+                // MAC users, replace the above with:
+                // gv.Dispatcher.Dispatch( ( ) => gv.Invalidate() );
+            }
+
+            if (moveOnInvalidateCB.IsChecked)
+            {
+                foreach (var box in boxes)
+                {
+                    box.X++;
+                }
+            }
+        }
+    }
+
+    private void ConvertFromWorldToScreen(
+              in float worldX, in float worldY, in float worldW, in float worldH,
+              out int screenX, out int screenY, out int screenW, out int screenH)
+
+    {
+        screenX = (int)(worldX / 3000 * width);
+        screenY = (int)(worldY / 2000 * height); // fill this in
+        screenW = (int)(worldW / 3000 * width);   // and this
+        screenH = (int)(worldH / 2000 * height);
+
+    }
+
+
+
+
 }

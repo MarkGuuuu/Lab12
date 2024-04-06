@@ -23,7 +23,7 @@
     </ContentPage.Resources>
     
     <ScrollView
-        HeightRequest="800">
+        >
         <VerticalStackLayout
             Spacing="10"
             Padding="10,0"

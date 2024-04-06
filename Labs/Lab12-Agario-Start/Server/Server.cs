@@ -67,3 +67,55 @@ var loggerFactory = LoggerFactory.Create( builder =>
 var logger = loggerFactory.CreateLogger<Program>();
 
 logger.LogInformation( "Server code is coming during the lab!" );
+
+logger.LogInformation("Server code is coming during the lab!");
+logger.LogDebug("CS 3500 - Jim Sample - Lab 12 Code!");
+bool phase2 = false;
+
+var clientAwaiter = new Networking(logger, ClientConnected, ClientDisconnected, HandleIncomingClientMessage);
+
+async void HandleIncomingClientMessage(Networking channel, string message)
+{
+    if (message == "Phase1")
+    {
+        await channel.SendAsync("Phase1-Agreed");
+        logger.LogDebug("Phase1-Agreed!");
+        phase2 = true;
+    }
+    else if (message == "Send Boxes" && phase2)
+    {
+        Console.Write("Sending the Boxes!\n");
+        for (int i = 0; i < new Random().Next(10) + 1; i++)
+        {
+            var box = new Box();
+            var boxString = JsonSerializer.Serialize(box);
+
+            if (i == 0)
+            {
+                logger.LogDebug($"About to send the following box: {boxString}");
+            }
+
+            await channel.SendAsync(boxString);
+        }
+    }
+    else
+    {
+        logger.LogDebug("You messed up the protocol!");
+    }
+}
+
+void ClientDisconnected(Networking channel)
+{
+    //throw new NotImplementedException();
+}
+
+void ClientConnected(Networking channel)
+{
+    //throw new NotImplementedException();
+}
+
+await clientAwaiter.WaitForClientsAsync(11000, true);
+
+logger.LogDebug("Press Enter to End Server");
+Console.Read();
+

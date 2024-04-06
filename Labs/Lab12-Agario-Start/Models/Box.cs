@@ -31,10 +31,10 @@ using System.Text.Json.Serialization;
 /// </summary>
 public class Box
 {
-    public float X;
-    public float Y;
-    public float Width;
-    public float Height;
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Width { get; set; }
+    public float Height { get; set; }
 
     /// <summary>
     ///   build once, use often, static random number generator.
@@ -50,5 +50,14 @@ public class Box
         Y = generator.Next( 0, 2000 );
         Width = generator.Next( 50, 1000 );
         Height = generator.Next( 50, 1000 );
+    }
+
+    [JsonConstructor]
+    public Box(float x, float y, float width, float height)
+    {
+        this.X = x;
+        this.Y = y;
+        this.Width = width;
+        this.Height = height;
     }
 }

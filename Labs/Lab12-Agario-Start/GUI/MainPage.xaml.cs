@@ -31,6 +31,11 @@ using Lab12Models;
 /// </summary>
 public partial class MainPage : ContentPage
 {
+
+    /// <summary>
+    ///   The connection to the remote server.
+    /// </summary>
+    private readonly Networking server;
     /// <summary>
     ///   Boxes to Draw (Come from network!)
     /// </summary>
@@ -46,8 +51,46 @@ public partial class MainPage : ContentPage
     /// </summary>
     public MainPage( )
     {
-        this.InitializeComponent();
+        this.InitializeComponent()
+        //ConnectBtn.Clicked += ConnectBtnClicked;
+
         this.DrawOnMe.Drawable = new MyCanvas( boxes, MoveOnUpdateCheckBox, InvalidateAlwaysCheckBox, DrawOnMe );
+
+        server = new(NullLogger.Instance, ConnectedToServer,
+                   DisconnectedFromServer, MessageFromServer);
+
+    }
+
+    private async void ConnectedToServer(Networking channel)
+    {
+        await channel.SendAsync("Phase1");
+    }
+
+    private async void DisconnectedFromServer(Networking channel)
+    {
+    }
+
+    private async void MessageFromServer(Networking channel, string message)
+    {
+        Debug.WriteLine($"({Environment.CurrentManagedThreadId}) Got a message.");
+        if (message == "Phase1-Agreed")
+        {
+            await channel.SendAsync("Send Boxes");
+        }
+        else
+        {
+            try
+            {
+                Box box = JsonSerializer.Deserialize<Box>(message) ?? throw new Exception("bad json");
+                boxes.Add(box);
+                Debug.WriteLine($"Client Box Received: {box.X}, {box.Y}, w/h = {box.Width} / {box.Height}");
+                DrawOnMe.Invalidate();
+            }
+            catch
+            {
+                Debug.WriteLine("ERROR: start debugging because something with the JSON is not right....");
+            }
+        }
     }
 
     /// <summary>
@@ -118,10 +161,26 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="sender"> ignored </param>
     /// <param name="e"> ignored </param>
-    private async void ConnectBtnClicked( object? sender, EventArgs e )
+    private async void ConnectBtnClicked(object? sender, EventArgs e)
     {
-        Debug.WriteLine( "Not used in first part of lab." );
+        Debug.WriteLine("Asking the network code to connect to the server.");
+
+        Spinner.IsVisible = true;
+
+        await server.ConnectAsync("localhost", 11000);
+
+        Spinner.IsVisible = false;
+        ConnectBtn.Text = "Send More Boxes";
+        ConnectBtn.Clicked -= ConnectBtnClicked;
+        ConnectBtn.Clicked += async (s, e) => { await server.SendAsync("Send Boxes"); };
+
+        // JIM Lab Note 1001: What happens if we let the networking happen on other threads?
+        //  Change the below line to :
+        //  await Task.Run( async ( ) => await server.HandleIncomingDataAsync( true ) );
+
+        await server.HandleIncomingDataAsync();
     }
+
 
     /// <summary>
     ///   Button Click Handler - "redraws" (invalidates) the screen.
